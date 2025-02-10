@@ -46,3 +46,30 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)(s + i));
 	return (NULL);
 }
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*strjoin;
+	int		i;
+	int		j;
+
+	strjoin = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)
+				+ 1));
+	if (!strjoin)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		strjoin[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		strjoin[i] = s2[j];
+		i++;
+		j++;
+	}
+	strjoin[i] = '\0';
+	return (strjoin);
+}

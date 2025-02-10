@@ -12,7 +12,43 @@
 
 #include "get_next_line.h"
 
-char *read_fd(int fd, char* temp)
+char *ft_remove(char *buffer)
+{
+    //?????????????????
+}
+
+char *ft_line(char *buffer)
+{
+    char *line;
+    int i;
+
+    if (!buffer)
+        return (NULL);
+    i = 0;
+    while (buffer[i] && buffer[i] != '\n')
+        i++;
+    line = ft_calloc(i + 1, sizeof(char));
+    i = 0;
+    while (buffer[i] && buffer[i] != '\n')
+    {
+        line[i] = buffer[i];
+        i++;
+    }
+    if (buffer[i] && buffer[i] == '\n')
+        line[i] = '\n';
+    return(line);
+}
+
+char *join(char *buffer, char *temp)
+{
+    char *to_join;
+
+    to_join = ft_strjoin(buffer, temp);
+    free(buffer);
+    return (to_join);
+}
+
+char *ft_read(int fd, char* temp)
 {
     char *buffer;
     int bytes;
@@ -21,7 +57,7 @@ char *read_fd(int fd, char* temp)
         temp = ft_calloc(1, 1);
     buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
     bytes = 1;
-    while (bytes > 1)
+    while (bytes > 0)
     {
         bytes = read(fd, buffer, BUFFER_SIZE);
         if (bytes == -1)
@@ -30,21 +66,26 @@ char *read_fd(int fd, char* temp)
             return (NULL);
         }
         buffer[bytes] = 0;
-        //join and free ???????????????/
+        temp = join(temp, buffer);
         if (ft_strchr(buffer, '\n'))
-            break;
+            break ;
     }
     
     free(buffer);
     return(temp);
 }
 
-char* get_next_line(int fd)
+char *get_next_line(int fd)
 {
     static char* buffer;
     char *line;
 
     if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
         return (NULL);
-    buffer = read_fd(fd, buffer);
+    buffer = ft_read(fd, buffer);
+    if (!buffer)
+        return (NULL);
+    line = ft_line(buffer);
+    buffer = ft_remove(buffer);
+    return (line);
 }
