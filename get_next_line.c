@@ -14,7 +14,25 @@
 
 char *ft_remove(char *buffer)
 {
-    //?????????????????
+    char *line;
+    int i;
+    int j;
+
+    i = 0;
+    while (buffer[i] && buffer[i] != '\n')
+        i++;
+    if (buffer[i] == '\0')
+    {
+        free(buffer);
+        return (NULL);
+    }
+    line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
+    i++;
+    j = 0;
+    while (buffer[i])
+        line[j++] = buffer[i++];
+    free(buffer);
+    return(line);
 }
 
 char *ft_line(char *buffer)
@@ -27,7 +45,7 @@ char *ft_line(char *buffer)
     i = 0;
     while (buffer[i] && buffer[i] != '\n')
         i++;
-    line = ft_calloc(i + 1, sizeof(char));
+    line = ft_calloc(i + 2, sizeof(char));
     i = 0;
     while (buffer[i] && buffer[i] != '\n')
     {
@@ -39,12 +57,12 @@ char *ft_line(char *buffer)
     return(line);
 }
 
-char *join(char *buffer, char *temp)
+char *ft_join(char *temp, char *buffer)
 {
     char *to_join;
 
-    to_join = ft_strjoin(buffer, temp);
-    free(buffer);
+    to_join = ft_strjoin(temp, buffer);
+    free(temp);
     return (to_join);
 }
 
@@ -66,7 +84,7 @@ char *ft_read(int fd, char* temp)
             return (NULL);
         }
         buffer[bytes] = 0;
-        temp = join(temp, buffer);
+        temp = ft_join(temp, buffer);
         if (ft_strchr(buffer, '\n'))
             break ;
     }
