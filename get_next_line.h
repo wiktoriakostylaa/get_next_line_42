@@ -6,7 +6,7 @@
 /*   By: wkostyla <wkostyla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:40:53 by wkostyla          #+#    #+#             */
-/*   Updated: 2025/02/07 16:12:10 by wkostyla         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:12:04 by wkostyla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# include <unistd.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <fcntl.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
