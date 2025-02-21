@@ -18,7 +18,7 @@
 */
 char	*ft_remove(char *buffer)
 {
-	char	*line;
+	char	*new_line;
 	int		i;
 	int		j;
 
@@ -30,13 +30,13 @@ char	*ft_remove(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
+	new_line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
 	i++;
 	j = 0;
 	while (buffer[i])
-		line[j++] = buffer[i++];
+		new_line[j++] = buffer[i++];
 	free(buffer);
-	return (line);
+	return (new_line);
 }
 
 /* Tworzy i zwraca linie do \n z bufora.
@@ -118,7 +118,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
